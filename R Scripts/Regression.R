@@ -19,10 +19,7 @@ colnames(dat2) = c("x_1", "x_2", "y")
 
 ## -------------------------------------- Linear Regression ---------------------------------------
 
-dat = dat2
-input = c(1650, 3)
-
-## Regress = function(dat, input) {
+Regress = function(dat, input) {
     X = as.matrix(dat[,1:(ncol(dat) - 1)])
     mu = as.vector(colMeans(X))
     sigma = as.vector(apply(X, 2, sd))
@@ -55,7 +52,7 @@ input = c(1650, 3)
     print(c("Thetas:", theta))
     print(c("Result:", h_theta(input)))
     
-##} 
+} 
     
 Regress(dat1, 3.5)
 Regress(dat2, c(1650, 3))
