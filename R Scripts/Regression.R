@@ -5,6 +5,8 @@ if( Sys.info()['sysname'] == "Windows"){
 }
 
 
+## ----------------------------- Single Variable Regression ------------------------------##
+
 dat1 = read.csv('ex1data1.txt')
 colnames(dat1) = c('x_1', 'y')
 dat1 = cbind(x_0 = 1, dat1)
@@ -35,3 +37,9 @@ for( i in 1:iterations){
 plot(J_hist, type = "l")
 paste(c("Theta_0 found by gradient descent:"), theta[1] )
 paste(c("Theta_1 found by gradient descent:"), theta[2] )
+
+predict = function(input) {
+    v = c(1, input)
+    calc = v %*% theta
+    calc * 10000
+}
