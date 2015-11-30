@@ -5,19 +5,25 @@ if( Sys.info()['sysname'] == "Windows"){
 }
 
 
-## ----------------------------- Single Variable Inputs -------------------------------------------
+## ------------------------------------- ex1 Single Variable Inputs -----------------------------------
 
 dat1 = read.csv('ex1data1.txt')
 colnames(dat1) = c('x_1', 'y')
 
 
-## -------------------------------- Multivariate Inputs -------------------------------------------
+## -------------------------------------- ex1 Multivariate Inputs -------------------------------------
 
 dat2 = read.csv('ex1data2.txt')
 colnames(dat2) = c("x_1", "x_2", "y")
 
 
-## -------------------------------------- Linear Regression ---------------------------------------
+## -------------------------------------- Zillow Data -------------------------------------------------
+
+## Call Zillow API for Baltimore sales data
+## Variables: SF, Bedrooms, Bathrooms, etc
+
+
+## -------------------------------------- Linear Regression -------------------------------------------
 
 Regress = function(dat, input) {
     X = as.matrix(dat[,1:(ncol(dat) - 1)])
@@ -56,3 +62,5 @@ Regress = function(dat, input) {
     
 Regress(dat1, 3.5)
 Regress(dat2, c(1650, 3))
+
+
