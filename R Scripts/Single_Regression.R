@@ -1,4 +1,9 @@
-setwd("~/G_WD/R/machine-learning-ex1")
+if( Sys.info()['sysname'] == "Windows"){
+    setwd("C:/Users/thealy/G_WD/Machine_Learning/R Scripts")
+} else {
+    setwd("~/G_WD/Machine_Learning/R Scripts")
+}
+
 
 dat1 = read.csv('ex1data1.txt')
 colnames(dat1) = c('x_1', 'y')
