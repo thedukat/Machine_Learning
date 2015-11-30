@@ -19,9 +19,14 @@ colnames(dat2) = c("x_1", "x_2", "y")
 
 ## -------------------------------------- Linear Regression ---------------------------------------
 
-Regress = function(dat, input) {
+dat = dat2
+input = c(1650, 3)
+
+## Regress = function(dat, input) {
     X = as.matrix(dat[,1:(ncol(dat) - 1)])
-    X = scale(X)
+    mu = as.vector(colMeans(X))
+    sigma = as.vector(apply(X, 2, sd))
+    X = t((t(X) - mu) / sigma)
     X = cbind(x_0 = 1, X)
     y = dat$y
     m = nrow(X)
@@ -29,34 +34,28 @@ Regress = function(dat, input) {
     alpha = 0.01
     theta = vector(mode = "numeric",length = ncol(X))
     
-    
     J = function(X, y, theta) {
-        h = X %*% theta
-        error = h - y
-        error_sqr = error^2
-        J = (1 / (2 * m)) * sum(error_sqr)
+        error_sqr = t(X %*% theta - y) %*% (X %*% theta - y)
+        (1 / (2 * m)) * error_sqr
     }
     
     J_hist = vector()
     
     for( i in 1:iterations){
-        h = X %*% theta
-        errors = h - y
-        theta_change = (alpha / m) * (t(X) %*% errors)
-        theta = theta - theta_change
+        theta = theta - alpha * (1 / m) * t(t((X %*% theta) - y) %*% X)
         J_hist = append(J_hist, J(X, y, theta))
     }
     
     plot(J_hist, type = "l")
     h_theta = function(input) {
-        v = c(1, input)
+        v = c(1, (t(input) - mu) / sigma)
         calc = v %*% theta
         calc
     }
     print(c("Thetas:", theta))
     print(c("Result:", h_theta(input)))
     
-} 
-
+##} 
+    
 Regress(dat1, 3.5)
 Regress(dat2, c(1650, 3))
